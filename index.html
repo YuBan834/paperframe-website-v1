@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperFrame · Personal Website V1 Archive</title>
+    <style>
+@font-face {
+    font-family:'MyFont';
+    src: url('像素字.ttf');
+}
+.night{
+    background-color: black !important;
+}
+.day{
+    background-image: url("win11.jpg") !important;
+}
+.Icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    transition-property: transform;
+    border: 0px;
+    transition-duration: 0.3s;
+}
+.Icon:hover{
+    transform: translateY(-15px);
+    background: white;
+}
+.Show_D{
+    width: 40vw;
+    height: 90vh;
+    border-radius: 20px;
+    position:absolute;
+    font-size: 5rem;
+    top: 5vh;
+    left:30vw;
+    background-color: #1e1e1e;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.After{
+    width: 101%;
+    height: 101%;
+    background-image: conic-gradient(yellow, red, purple, blue, lime, yellow);
+    position: absolute;
+    border-radius: 20px;
+    top: -0.5%;
+    left:-0.5%;
+    z-index: -1;
+    filter: blur(0.3rem);
+    }
+    
+.CloseButton{
+    width: 4vh;
+    height: 4vh;
+    background-color: #ffffff00;
+    position: absolute;
+    top: 1vh;
+    right: 1vh;
+    border: 0px;
+   }
+   .CloseButton:hover{
+    background-color: red !important;
+   }
+   * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #粒子画布 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1;
+        }
+        #动画开关按钮 {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        #动画开关按钮:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+        #动画开关按钮.off {
+            background: rgba(100, 100, 100, 0.5);
+            color: #ccc;
+        }
+    .Show_Skill{
+    width: 14vh;
+    height: 25vh;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0rem;
+    }
+    .Show_Skill:hover{
+        background-color: white;
+        transform: translateY(-10px);
+        transition: 0.3s;
+        font-size: small !important;
+        color: black;
+    }
+    .xiaozi{
+        position: absolute;
+        bottom: 0px;
+    }
+.Touxiang{
+width: 15vh;
+height: 15vh;
+border-radius: 50%;
+top: 10%;
+left: 10%;
+position: absolute;
+}
+.Touxiang:hover{
+    transform: scale(1.5);
+    transition: 0.3s;
+}
+.archive-mark {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 20;
+    padding: 8px 12px;
+    color: rgba(255,255,255,.82);
+    background: rgba(20,28,42,.58);
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    font: 12px/1.2 MyFont, sans-serif;
+    letter-spacing: .08em;
+}
+</style>
+<script>
+ function startTime(){
+	var today=new Date();
+	var h=today.getHours();
+	var m=today.getMinutes();
+	var s=today.getSeconds();
+	m=checkTime(m);
+	s=checkTime(s);
+	document.getElementById('txt').innerHTML=h+":"+m+":"+s;
+	t=setTimeout(function(){startTime()},1000);
+}
+function checkTime(i){
+	if (i<10){
+		i="0" + i;
+	}
+	return i;
+}
+</script>
+</head>
+<body id="theme" style="margin: 0px;background-size: cover;overflow: hidden; background-position: center;background-image: url('win11.jpg')" onload="startTime()">
+<div class="archive-mark">PAPERFRAME · V1 ARCHIVE</div>
+<div style="height: 100vh;width: 10vw;display: flex;flex-direction: column;justify-content: space-around;align-items: center;" onload="startTime()">
+     <button class="Icon" onclick="document.getElementById('Person').show()">
+		 <img src="person.png" style="width: 100%;height: 100%;">
+	 </button>
+     <button class="Icon" onclick="document.getElementById('Mail').show()">
+		 <img src="mail.png" style="width: 100%;height: 100%;">
+	 </button>
+     <div class="Icon" style="visibility: hidden;"></div>
+     <div class="Icon" style="visibility: hidden;"></div>
+     <div class="Icon" style="visibility: hidden;"></div>
+</div>
+<h1 style="width: 30vw;height: 20vh;position: absolute;top: 10vh;right: 20vw;font-size: 8rem;font-family: MyFont;color: rgb(15, 131, 255);" id="txt"></h1>
+<!--粒子动画画布和开关按钮-->
+<canvas id="粒子画布" style="z-index: -2;"></canvas>                  
+    <button id="动画开关按钮">
+        <img id = "Sun_Moon" src="sun.png">
+    </button>
+<dialog class="Show_D" id ="Person">
+    <div class="After"></div>
+    <button class="CloseButton" onclick="document.getElementById('Person').close()">
+        <img src="close.png" style="width: 100%;height: 100%;">
+    </button>
+    <div>
+        <img src="../assets/images/avatar-paperframe.png" class="Touxiang">
+        <h6 style="position: absolute;top: 10%;left: 35%;color: rgb(44, 159, 252);font-family: MyFont;">开发者纸帧 / PaperFrame</h6>
+    </div>
+    <div style="position: absolute;top: 30%;left: 5%;color: white;font-family: MyFont;display: grid;font-size: 1rem;grid-template-columns: 1fr 1fr;gap: 0 40%;width: 100%;height: 5%;">
+        <p>IP:云南</p>
+        <p>身份:苦比高中生</p>
+        <p>年龄:15</p>
+        <p>性别:男</p>
+    </div>
+    <p style="font-size: 1rem;color: white;position: absolute;top: 40%;z-index: 1;font-family: MyFont;width: 90%;left: 5%;">
+    哈喽哈喽！欢迎来到我的网站！(*´∀`)~♥这是我用于练手开发的个人主页，虽然现在看起来很简陋，但我会不断完善和修改的。希望你能喜欢这里！(｡･ω･｡)ﾉ♡我是一名全栈开发者,也会使用游戏引擎(Godot),如果你对我的技能感兴趣，或者想要联系我，欢迎点击旁边的邮件图标！(＾▽＾)
+    </p>
+    <p style="font-size: 2rem;color: white;position: relative;top: 63%;left:3%;z-index: 1;">✨计算机技能</p>
+    <div style="display: flex;justify-content: space-evenly;top: 65%;position: relative;z-index: 1;">
+            <div class="Show_Skill"><img src="html.png"><p class="xiaozi">HTML</p></div>
+            <div class="Show_Skill"><img src="css.png"><p class="xiaozi">CSS</p></div>
+            <div class="Show_Skill"><img src="javascript.png"><p class="xiaozi">JavaScript</p></div>
+            <div class="Show_Skill"><img src="nodejs.png"><p class="xiaozi">Node.js</p></div>
+            <div class="Show_Skill"><img src="python.png"><p class="xiaozi">Python</p></div>
+    </div>
+    <img src="几何图形.png" style="width: 100%;height: 40%;position: absolute;bottom: 0;left: 0;border-radius: 0 0 20px 20px;">
+</dialog>
+<!-- 邮件表单对话框 -->
+<dialog class="Show_D" id ="Mail">
+    <div class="After"></div>
+    <button class="CloseButton" onclick="document.getElementById('Mail').close()">
+        <img src="close.png" style="width: 100%;height: 100%;">
+    </button>
+    <img src="图片1.png" style="width: 100%;height: 25%;z-index: -3;border-radius: 20px 20px 0 0;">
+    <p style="color: white;width: 40vw;position: absolute;top: 5%;;text-align: center;font-family: MyFont;">联系我</p>
+    <form style="width: 100%;height: 75%" id="form">
+        <p style="width:20vw;font-size: 1rem;color: white;left: 3vw;position: relative;">•你的名字(称呼)</p>
+        <textarea type="text" style="width: 20vh;background-color: #3c3b3b;height: 4vh;border-radius: 5px;border: 2px solid #888888;position: absolute;top: 27%;right: 3vw;" name="name" id="name"  maxlength="10" placeholder="最多输入10个字符哦~"></textarea>
+        <span id="name-length" style="font-size: 1rem;color: white;position: absolute;top: 27%;right: 2vw;">0</span>
+        <p style="width:40vw;font-size: 1rem;color: white;left: 3vw;position: relative;top: 2vh;">•你的联系方式(电子邮,箱电话,QQ……)</p>
+        <textarea type="text" style="width: 50vh;background-color: #3c3b3b;height: 4vh;border-radius: 5px;border: 2px solid #888888;position: absolute;top: 38%;left: 15vh;" name="contact" id="contact"  maxlength="30" placeholder="最多输入30个字符哦~"></textarea>
+        <span id="contact-length" style="font-size: 1rem;color: white;position: absolute;top: 38%;right: 6vw;">0</span>
+        <p style="width:40vw;font-size: 1rem;color: white;left: 3vw;position: relative;top:8vh">•你的留言</p>
+        <textarea type="text" style="width: 30vw;background-color: #3c3b3b;height: 35vh;border-radius: 5px;border: 2px solid #888888;position: absolute;top: 48%;left: 10vh;" name="message" id="message" maxlength="1000" placeholder="最多输入1000个字符哦~"></textarea>
+        <span id="message-length" style="font-size: 1rem;color:white;position:absolute;top: 80%;right: 4vw;">0</span>
+        <input type="submit" style="width: 15vh;height:6vh;background-color:#007bff;color:white;border-radius:5px;border:none;position: absolute;bottom: 3vh;left: 40%;">
+    </form>
+</dialog>
+<script>
+const name = document.getElementById("name")
+const contact = document.getElementById("contact")
+const message = document.getElementById("message")
+
+name.addEventListener('input', function() {
+  document.getElementById("name-length").textContent = this.value.length;
+});
+contact.addEventListener('input', function() {
+  document.getElementById("contact-length").textContent = this.value.length;
+});
+message.addEventListener('input', function() {
+  document.getElementById("message-length").textContent = this.value.length;
+});
+
+  document.getElementById('form').addEventListener('submit', function(e) {
+  e.preventDefault(); 
+
+  const name_length = document.getElementById('name').value.trim().length;
+  const contact_length = document.getElementById('contact').value.trim().length;
+  const message_length = document.getElementById('message').value.trim().length;
+
+if (!name_length || !contact_length || !message_length) {
+  alert('不能为空');
+  return;
+}
+
+alert('这是 V1 历史归档，留言服务已经迁移到新版个人网站。');
+  });
+
+        const 画布 = document.getElementById('粒子画布');
+        const 绘图 = 画布.getContext('2d');
+
+        let 画布宽度, 画布高度;
+
+        const 粒子数量 = 120;
+        const 连线阈值 = 160;
+        const 鼠标连线阈值 = 200;
+        let 粒子数组 = [];
+
+        let 鼠标X = null, 鼠标Y = null;
+
+        let 动画运行中 = false; 
+
+        window.addEventListener('mousemove', (e) => {
+            鼠标X = e.clientX;
+            鼠标Y = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+            鼠标X = null;
+            鼠标Y = null;
+        });
+
+        function 调整画布尺寸() {
+            画布宽度 = window.innerWidth;
+            画布高度 = window.innerHeight;
+            画布.width = 画布宽度;
+            画布.height = 画布高度;
+        }
+        调整画布尺寸();
+
+        function 初始化粒子() {
+            粒子数组 = [];
+            for (let i = 0; i < 粒子数量; i++) {
+                粒子数组.push({
+                    x: Math.random() * 画布宽度,
+                    y: Math.random() * 画布高度,
+                    vx: (Math.random() - 0.5) * 0.7,
+                    vy: (Math.random() - 0.5) * 0.7
+                });
+            }
+        }
+        初始化粒子();
+
+        function 更新粒子() {
+            for (let p of 粒子数组) {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) { p.x = 0; p.vx *= -1; }
+                if (p.x > 画布宽度) { p.x = 画布宽度; p.vx *= -1; }
+                if (p.y < 0) { p.y = 0; p.vy *= -1; }
+                if (p.y > 画布高度) { p.y = 画布高度; p.vy *= -1; }
+            }
+        }
+
+        function 绘制粒子连线() {
+            for (let i = 0; i < 粒子数组.length; i++) {
+                for (let j = i + 1; j < 粒子数组.length; j++) {
+                    const dx = 粒子数组[i].x - 粒子数组[j].x;
+                    const dy = 粒子数组[i].y - 粒子数组[j].y;
+                    const 距离 = Math.sqrt(dx * dx + dy * dy);
+                    if (距离 < 连线阈值) {
+                        const 透明度 = (1 - 距离 / 连线阈值) * 0.5;
+                        绘图.strokeStyle = `rgba(255, 255, 255, ${透明度})`;
+                        绘图.lineWidth = 1.2;
+                        绘图.beginPath();
+                        绘图.moveTo(粒子数组[i].x, 粒子数组[i].y);
+                        绘图.lineTo(粒子数组[j].x, 粒子数组[j].y);
+                        绘图.stroke();
+                    }
+                }
+            }
+        }
+
+        function 绘制鼠标连线() {
+            if (鼠标X === null || 鼠标Y === null) return;
+
+            for (let p of 粒子数组) {
+                const dx = p.x - 鼠标X;
+                const dy = p.y - 鼠标Y;
+                const 距离 = Math.sqrt(dx * dx + dy * dy);
+                if (距离 < 鼠标连线阈值) {
+                    const 透明度 = (1 - 距离 / 鼠标连线阈值) * 0.8;
+                    绘图.strokeStyle = `rgba(255, 255, 255, ${透明度})`;
+                    绘图.lineWidth = 1.5;
+                    绘图.beginPath();
+                    绘图.moveTo(p.x, p.y);
+                    绘图.lineTo(鼠标X, 鼠标Y);
+                    绘图.stroke();
+                }
+            }
+        }
+
+        function 绘制粒子() {
+            for (let p of 粒子数组) {
+                绘图.beginPath();
+                绘图.arc(p.x, p.y, 2.8, 0, Math.PI * 2);
+                绘图.fillStyle = '#ffffff';
+                绘图.shadowColor = '#ffffff';
+                绘图.shadowBlur = 12;
+                绘图.fill();
+            }
+            绘图.shadowBlur = 0;
+        }
+
+        function 动画循环() {
+            if (动画运行中) {
+                更新粒子();
+                绘图.clearRect(0, 0, 画布宽度, 画布高度);
+                绘制粒子连线();
+                绘制鼠标连线();
+                绘制粒子();
+            } else {
+             绘图.clearRect(0, 0, 画布宽度, 画布高度);
+            }
+            requestAnimationFrame(动画循环);
+        }
+
+        动画循环();
+
+        window.addEventListener('resize', () => {
+            调整画布尺寸();
+            初始化粒子();
+        });
+
+        const 按钮 = document.getElementById('动画开关按钮');
+        按钮.addEventListener('click', () => {
+            动画运行中 = !动画运行中;  
+            const Sun_Moon = document.getElementById('Sun_Moon')
+            const theme = document.getElementById('theme');
+            if (动画运行中) {
+                Sun_Moon.src = 'moon.png';
+                按钮.classList.remove('off');
+                    theme.style.removeProperty('background-image');
+                    theme.classList.remove('day');
+                    theme.classList.add('night');
+            } else {
+                Sun_Moon.src = 'sun.png';
+                按钮.classList.add('off');
+                绘图.clearRect(0, 0, 画布宽度, 画布高度);
+                    theme.classList.remove('night');
+                    theme.classList.add('day');
+            }
+        });
+    </script>
+</body>
+</html>

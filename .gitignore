@@ -1,0 +1,5 @@
+node_modules/
+messages.txt
+留言板.txt
+.DS_Store
+Thumbs.db
